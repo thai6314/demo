@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+    <title>ThongTinCaNhan</title>
+    <style>
+        input {
+            width: 200px;
+            float: left;
+            margin-top: 8px;
+        }
+
+        .error {
+            font-size: 11px;
+            color: red;
+            float: left;
+            margin-top: 38px;
+            margin-left: -199px;
+            
+        }
+
+        .Modal {
+            
+            width: 500px;
+            height: 450px;
+            
+            margin-top: -20px;
+            margin-left: -15px;
+        }
+        label{
+            float:right;
+            margin-top: 8px;
+        }
+    </style>
+
+    <script src="Form.js"></script>
+</head>
+
+<body>
+    
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+    Click Here
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">THÔNG TIN CÁ NHÂN</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">  
+        <div class="modal-body container">
+            <div class="Modal">
+                <!--<h1>THÔNG TIN CÁ NHÂN</h1>-->
+                <form>
+                    <table style="border: 1px;">
+                        <tr>
+                            <td><label>Tên đăng nhập</label></td>
+                            <td>
+                                <input type="text" placeholder="6-20 ký tự" name="tenDangNhap" id="tenDangNhap" value="">
+                                <div id="errorTenDangNhap" class="error"></div>
+                                
+                            </td>
+                        </tr>
+        
+                        <tr>
+                            <td><label>Mật khẩu</label></td>
+                            <td>
+                                <div>
+                                    <input type="password" placeholder="8 ký tự trở lên" name="matKhau" id="matKhau" value=""></input>
+                                    <u onclick="HienThi();" id="hienthi" style="position: absolute;margin-left: -15px;
+                                    font-size: 20px;margin-top: 3px;">o</u>
+                                </div>
+                                    <div id="errorMatKhau" class="error"></div>
+                                
+                            </td>
+                        </tr>
+        
+                        <tr>
+                            <td><label>Nhập lại mật khẩu</label></td>
+                            <td>
+                                <input type="password" name="nhapLaiMatKhau" id="nhapLaiMatKhau" value="">
+                                <u onclick="HienThi2();" id="hienthi2" style="position: absolute;margin-left: -15px;
+                                    font-size: 20px;margin-top: 3px;">o</u>
+                                <div  id="reset" class="error"></div>
+                            </td>
+        
+                        </tr>
+        
+                        <tr>
+                            <td><label>Ngày sinh</label></td>
+                            <td>
+                                <input type="date" name="ngaysinh" id="ngaysinh" value="">
+                                <div  id="ngaySinh" class="error"></div>
+                                
+                            </td>
+                            
+                        </tr>
+                        
+                        <tr>
+                            
+                            <td><label>Công việc</label></td>
+                            <td><input type="text" name="congViec" id="congViec" value=""></td>
+                            
+                        </tr>
+        
+                        <tr>
+                            <td><label>Email</label></td>
+                            <td>
+                                <input type="email" placeholder="Example@gmail.com" name="email" id="email" value="">
+                                <div id="errorEmail" class="error"></div>
+                            </td>
+        
+                        </tr>
+        
+                        <tr class="thoigianlam">
+                            <td><label>Thời gian làm</label></td>
+                            <td>
+                                <div>
+                                    <label style="float: left;margin-left: 10px;" class="ngaylam">Từ ngày</label>
+                                    <input style="float: right;" type="date" name="tuNgay" id="tuNgay" value="">
+                                    <div style="position: absolute;margin-left: 68px;margin-top: 36px;" id="errorTu" class="error"></div>
+                                </div>
+                                <br>
+                                <div>
+                                    <label style="float: left;margin-left: -68px; margin-top:33px;" class="ngaylam">Đến ngày</label>
+                                    <input style=" float: right; margin-top:18px" type="date" name="denNgay" id="denNgay" value="">
+                                    <div style="    position: absolute;margin-left: 68px;margin-top: 60px;" id="errorDen" class="error"></div>
+                                </div>
+                                </div>
+                                <div style="margin-left:0px;margin-top: 60px;position: absolute;" id="errorTime" class="error"></div>
+        
+                            </td>
+        
+                        </tr>
+        
+                        <tr>
+                            <td></td>
+                            <td style="text-align: center;"><button style="margin-top: 18px;" onsubmit="Submit()"
+                                    onclick="Submit(); return false;">Submit</button></td>
+                        </tr>
+                </form>
+            </div>
+            <!---->
+          
+        </div>
+        
+            
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Customize</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"
+    type="text/javascript"></script>
+
+  <script src="./script.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    $().ready(function () {
+      $("#demoForm").validate({
+        onfocusout: false,
+        onkeyup: false,
+        onclick: false,
+        rules: {
+          "user": {
+            required: true,
+            maxlength: 20,
+            minlength: 6
+          },
+          "password": {
+            required: true,
+            minlength: 8
+          },
+          "re-password": {
+            equalTo: "#password",
+            minlength: 8
+
+          },
+          "email": {
+            required: true,
+            email: true
+          },
+          "ngaySinh": {
+            required: true,
+            validateNgaySinh: true
+          },
+        
+          "thoiGian":{
+            validateThoiGian:true,
+            requiredWork:true
+          },
+        },
+        messages: {
+          "user": {
+            required: "Vui lòng nhập username",
+            maxlength: "Hãy nhập tối đa 15 ký tự"
+          },
+          "password": {
+            required: "Vui lòng nhập password",
+            minlength: "Hãy nhập ít nhất 8 ký tự"
+          },
+          "re-password": {
+            equalTo: "Hai password phải giống nhau",
+            minlength: "Hãy nhập ít nhất 8 ký tự"
+          },
+          "email": {
+            required: "Vui lòng nhập Email"
+          },
+          "ngaySinh": {
+            required: "Vui lòng nhập ngày sinh",
+            validateNgaySinh: "Ngày sinh không hợp lệ"
+          }
+        }
+      });
+      $('#demoForm').submit(function (event) {
+        event.preventDefault();
+        if (event.result) {
+          $('#exampleModal').modal('hide');
+        }
+        console.log($('#tuNgay').val().slice(8,10)-$('#denNgay').val().slice(8,10));
+        console.log($('#user').required);
+      });
+
+      $("#button-submit").click(function () {
+        $('#demoForm').submit();
+      });
+
+      $.validator.addMethod("validateNgaySinh", function (value, element) {
+        var today = new Date();
+        if ((today.getFullYear() - parseInt(value.slice(0, 4))) >= 5) return true;
+        else return false;
+
+      },
+        $.validator.format("Ngày sinh không hợp lệ"));
+
+      $("#anHien").click(function () {
+        if (document.getElementById("password").getAttribute("type") == "text") {
+          document.getElementById("password").setAttribute("type", "password");
+        }
+        else {
+          document.getElementById("password").setAttribute("type", "text");
+        }
+      });
+
+      $.validator.addMethod("validateThoiGian",function(value){
+        if(($('#denNgay').val())>=($('#tuNgay').val())){
+          return true;
+        }
+        else return false;
+      },$.validator.format("Thời gian làm không hợp lệ"));
+
+      $.validator.addMethod("requiredWork", function(value) {
+        console.log($('#congViec').val());
+        if ($('#congViec').val() != '' && ($('#tuNgay').val() == '' || $('#denNgay').val() == '')) {
+          return false;
+        } else {
+          return true;
+        }
+      }, jQuery.validator.format("Nếu có công việc thì phải nhập thời gian"));
+    });
+  </script>
+  <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+</head>
+
+<body>
+  <div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      Modal profile
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Profile</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="" id="demoForm" method="get">
+              <div class="row">
+                <div class="col-md-3">
+                  <label style="position: absolute;">Tên đăng nhập</label>
+                </div>
+                <div class="col-md-9">
+                  <input class="form-control" type="text" name="user" id="user">
+                  <span class="error"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label>Password</label>
+                </div>
+                <div class="col-md-9">
+                  <input class="form-control" type="text" name="password" id="password">
+                  <ion-icon id="anHien" name="eye-off-outline"></ion-icon>
+                  <span class="error"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label>Re-password</label>
+                </div>
+                <div class="col-md-9">
+                  <input class="form-control" type="text" name="re-password" id="re-password">
+                  <span class="error"></span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <label>Ngày sinh</label>
+                </div>
+                <div class="col-md-9">
+                  <input class="form-control " style="color: black;" type="date" name="ngaySinh" id="ngaySinh">
+                  <span class="error"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label>Công Việc</label>
+                </div>
+                <div class="col-md-9">
+                  <input class="form-control" type="text" name="congViec" id="congViec">
+                  <span class="error"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <label>Email</label>
+                </div>
+                <div class="col-md-9">
+                  <input class="form-control" type="email" name="email" id="email">
+                  <span class="error"></span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <label>Thời gian</label>
+                </div>
+
+                <div class="col-md-9" id="thoiGian">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label>Từ ngày</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input class="form-control" type="date" name="tuNgay" id="tuNgay">
+                      <span class="error"></span>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label>Đến ngày</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input class="form-control" style="color: black;" type="date" name="denNgay" id="denNgay">
+                      <span class="error" ></span>
+                    </div>
+                  </div>
+                  <span class="error" id="errorTime"></span>
+                </div>
+              </div>
+
+              <!-- <button type="butron" id="button-submit" class="btn btn-primary">Save changes</button> -->
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="butron" id="button-submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>

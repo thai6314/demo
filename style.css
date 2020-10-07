@@ -1,0 +1,12 @@
+.row {
+    margin-top:5px;
+}
+.error{
+    color: red;
+    font-size: 11px;
+}
+ion-icon{
+    position: absolute;
+    margin-top: -26px;
+    margin-left: 320px;
+}
